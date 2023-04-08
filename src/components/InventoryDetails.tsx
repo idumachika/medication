@@ -35,14 +35,11 @@ const InventoryDetails: React.FC<Props2> = ({ route}: Props2) => {
  const inventoryId = route.params.id ; 
  const navigation = useNavigation();
  const {inventories,setInventories} = useInventory();
- const [showModal, setShowModal] = useState(false);
  const [inventory, setInventory] = useState<Item>();
- const [isEdit, setIsEdit] = useState(false);
+
 
  useEffect(() => {
-   const details=  inventories.find(c => c.id ===inventoryId) as Item
-
-   
+   const details = inventories.find(c => c.id === inventoryId) as Item
    setInventory(details)
  }, [])
  
@@ -50,8 +47,7 @@ const InventoryDetails: React.FC<Props2> = ({ route}: Props2) => {
 
 
  const deleteInventory = async () => {
-  console.log('yes');
-  
+    console.log('yes');
     const items = await AsyncStorage.getItem('inventories'); 
     let inventories = [];
     if (items != null) inventories = JSON.parse(items);
@@ -95,15 +91,6 @@ const getItems = async (): Promise<Item[]> => {
     return [];
   }
 };
-
-const handleUpdate= () => {}
-const handleOnClose= () => setShowModal(false);
-
-const openEditModal= () => {
-  setIsEdit(true);
-  setShowModal(true)
-}
-
 
 if (inventory === undefined) {
   return null

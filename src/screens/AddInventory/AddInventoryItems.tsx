@@ -34,7 +34,6 @@ const AddInventory = ({navigation}:any) => {
 
   const handleSubmit = async () => {
     if (!name || !total || !price || !desc) {
-      // Display an error message if any of the fields are empty
       Alert.alert("Please fill in all fields");
       return;
     }
@@ -48,7 +47,6 @@ const AddInventory = ({navigation}:any) => {
     };
     
 
-    // Check if the name already exists in the inventory
     const items = await AsyncStorage.getItem("inventories");
     const parsedItems = items ? JSON.parse(items) : [];
     const nameExists = parsedItems.some(
@@ -59,7 +57,6 @@ const AddInventory = ({navigation}:any) => {
       return;
     }
 
-    // Check if the description has at least three words
     const descWords = newItem.desc.split(" ");
     if (descWords.length < 3) {
       Alert.alert("Description must have at least three words");
@@ -120,8 +117,8 @@ const AddInventory = ({navigation}:any) => {
           />
 
           <CustomButton
-            title={"OK"}
-            backgroundColor={"#2ecc71"}
+            title={"Add New Inventory"}
+            backgroundColor={"#0074D9"}
             textColor={"#fff"}
             onPress={handleSubmit}
           ></CustomButton>
@@ -151,11 +148,11 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#007aff",
+    borderColor: "#DDDDDD",
     fontSize: 15,
     paddingHorizontal:8,
     borderRadius:4,
-    color: "#007aff",
+    color: "#000000",
   },
   name: {
     height: 40,

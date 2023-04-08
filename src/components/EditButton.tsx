@@ -1,6 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import  FontAwesome  from 'react-native-vector-icons/FontAwesome';
+import { TouchableOpacity, StyleSheet, StyleProp, ViewStyle,Text } from 'react-native';
 
 interface EditButtonProps {
   onPress: () => void;
@@ -9,8 +8,8 @@ interface EditButtonProps {
 
 const EditButton: React.FC<EditButtonProps> = ({ onPress, style }) => {
   return (
-    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
-      <FontAwesome name="edit" size={24} color="white" />
+    <TouchableOpacity testID="edit-button"   style={[styles.button, style]} onPress={onPress}>
+      <Text style={styles.editbtn}>Edit</Text>
     </TouchableOpacity>
   );
 };
@@ -18,12 +17,16 @@ const EditButton: React.FC<EditButtonProps> = ({ onPress, style }) => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#0074D9',
-    borderRadius: 25,
-    width: 40,
+    borderRadius: 5,
+    width: 70,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  editbtn: {
+    fontSize: 12,
+    color:"#fff"
+  }
 });
 
 export default EditButton;

@@ -25,16 +25,12 @@ const RoundButton: React.FC<RoundButtonProps> = ({ title, backgroundColor, textC
 
 const styles = StyleSheet.create({
   button: {
-
-  
     padding: 15,
-    borderRadius: 50,
+    borderRadius: 5,
     elevation: 5,
     marginBottom: 20,
-
     alignItems: 'center',
     justifyContent: 'center',
-
     paddingHorizontal: 20,
     height: 50,
   

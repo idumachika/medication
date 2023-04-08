@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Login from "./src/screens/LoginScreen";
+import Login from "./src/screens/Login/Login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import InventoryScreen from "./screens/InventoryScreen/InventoryScreen";
+import InventoryScreen from "./src/screens/Inventory/InventoryItems";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import InventoryDetail from "./src/components/InventoryDetails";
 import { InventoryProvider } from "./src/context/InventoryProvider";
-// import InventoryAddScreen from "./screens/inventoryAdd/InventoryAddScreen";
-// import InventoryEditScreen from "./screens/InventoryEdit/InventoryEditScreen";
+import AddInventoryItems from "./src/screens/AddInventory/AddInventoryItems";
+import EditInventory from "./src/screens/EditInventory/EditInventory";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +30,7 @@ export default function App() {
   }, []);
 
 
-  const RenderDetaiScreen = (props: any) => <InventoryDetail {...props} />;
+  const RenderDetailScreen = (props: any) => <InventoryDetail {...props} />;
 
   if (!userEmail.email) return <Login onSubmit={findUser} />;
   return (
@@ -39,16 +39,16 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen  options={{
               headerTitle: "Inventories",
-            }} name="InventoryScreen" >
+            }} name="InventoryScreen">
           {props => <InventoryScreen {...props} setUserEmail={setUserEmail} />}
           </Stack.Screen>
-          <Stack.Screen name="Inventory Detail" component={RenderDetaiScreen} />
+          <Stack.Screen name="Inventory Detail" component={RenderDetailScreen} />
           <Stack.Screen
             options={{
               headerTitle: "Add New Inventory",
             }}
             name="InventoryAddScreen"
-            component={InventoryAddScreen}
+            component={AddInventoryItems}
           />
 
           <Stack.Screen
@@ -56,7 +56,7 @@ export default function App() {
               headerTitle: "Edit Inventory",
             }}
             name="InventoryEditScreen"
-            component={InventoryEditScreen}
+            component={EditInventory}
           />
         </Stack.Navigator>
       </InventoryProvider>
