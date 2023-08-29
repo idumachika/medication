@@ -1,6 +1,6 @@
 import React from 'react';
 import { render,fireEvent } from '@testing-library/react-native';
-import AddInventoryItem from '../src/screens/AddInventory/AddInventoryItems';
+import AddInventoryItem from '../src/screens/AddMedication/AddMedication';
 
 describe('AddInventory component', () => {
   test('renders all input fields', () => {

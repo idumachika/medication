@@ -5,7 +5,7 @@ import EditButton from './EditButton';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { useInventory } from '../context/InventoryProvider';
+import { useMedication } from '../context/MedicationProvider';
 
 type Props = {
   item: Item;
@@ -13,9 +13,9 @@ type Props = {
 
 type Item = {
   name: string;
-  total: number;
-  price: number;
-  desc: string;
+  dosage: number;
+  frequency: string;
+  time: string;
 };
 
 type Props2 = {
@@ -31,29 +31,31 @@ interface DetailsScreenProps {
 }
 
 
-const InventoryDetails: React.FC<Props2> = ({ route}: Props2) => {
- const inventoryId = route.params.id ; 
+const MedicationDetails: React.FC<Props2> = ({ route}: Props2) => {
+ const medicationId = route.params.id ; 
  const navigation = useNavigation();
- const {inventories,setInventories} = useInventory();
- const [inventory, setInventory] = useState<Item>();
+ const {medications, setMedications} = useMedication();
+ const [medics, setmedics] = useState<Item>();
 
 
  useEffect(() => {
-   const details = inventories.find(c => c.id === inventoryId) as Item
-   setInventory(details)
+   const details = medications.find(c => c.id === medicationId) as Item;
+   setmedics(details);
  }, [])
  
  
 
 
- const deleteInventory = async () => {
+ const deleteMedication = async () => {
     console.log('yes');
-    const items = await AsyncStorage.getItem('inventories'); 
-    let inventories = [];
-    if (items != null) inventories = JSON.parse(items);
-    const newInventory = inventories.filter((n: Item) => n.name !==(inventory.name)); 
-    setInventories(newInventory);
-    await AsyncStorage.setItem('inventories', JSON.stringify(newInventory));
+    const items = await AsyncStorage.getItem('medications'); 
+    let medications = [];
+    if (items != null) medications = JSON.parse(items);
+    const newMedications = medications.filter(
+      (n: Item) => n.name !== medics.name,
+    ); 
+    setMedications(newMedications);
+    await AsyncStorage.setItem('inventories', JSON.stringify(newMedications));
     navigation.goBack(); 
 };
 
@@ -65,7 +67,7 @@ const displayDeleteAlert = () => {
     [
       {
         text: 'Delete',
-        onPress:deleteInventory,
+        onPress: deleteMedication,
       },
       {
         text: 'No Thanks',
@@ -74,7 +76,7 @@ const displayDeleteAlert = () => {
     ],
     {
       cancelable: true,
-    }
+    },
   );
 };
 
@@ -92,25 +94,24 @@ const getItems = async (): Promise<Item[]> => {
   }
 };
 
-if (inventory === undefined) {
-  return null
+if (medics === undefined) {
+  return null;
 }
  
 return (
-  
-    <View style={styles.container}>
-      <Text style={styles.name}>Name: {inventory.name}</Text>
-      <Text style={styles.total}>Total: {inventory.total}</Text>
-      <Text style={styles.price}>Price: {inventory.price}</Text>
-      <Text style={styles.price}>Desc: {inventory.desc}</Text>
+  <View style={styles.container}>
+    <Text style={styles.name}>Name: {medics.name}</Text>
+    <Text style={styles.total}>Total: {medics.dosage}</Text>
+    <Text style={styles.price}>Price: {medics.frequency}</Text>
+    <Text style={styles.price}>Desc: {medics.time}</Text>
 
-      <DeleteButton onPress={displayDeleteAlert}></DeleteButton>
-      <EditButton  onPress={() => navigation.navigate('InventoryEditScreen' as never, {inventory})}></EditButton>
-    </View>
-
-    
-    
-  );
+    <DeleteButton onPress={displayDeleteAlert}></DeleteButton>
+    <EditButton
+      onPress={() =>
+        navigation.navigate('EditMedication' as never, {medics})
+      }></EditButton>
+  </View>
+);
 };
 
 const styles = StyleSheet.create({
@@ -143,5 +144,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InventoryDetails;
+export default MedicationDetails;
 

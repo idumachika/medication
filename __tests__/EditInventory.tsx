@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import EditInventory from '../src/screens/EditInventory/EditInventory';
+import EditInventory from '../src/screens/EditMedication/EditMedication';
 
 describe('EditInventory', () => {
   test('updates the input fields correctly', () => {

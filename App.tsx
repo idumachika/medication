@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Login from "./src/screens/Login/Login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import InventoryScreen from "./src/screens/Inventory/InventoryItems";
+import DashboardItems from "./src/screens/Dashboard/DashboardItems";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import InventoryDetail from "./src/components/InventoryDetails";
-import { InventoryProvider } from "./src/context/InventoryProvider";
-import AddInventoryItems from "./src/screens/AddInventory/AddInventoryItems";
-import EditInventory from "./src/screens/EditInventory/EditInventory";
+import MedicationDetail from "./src/components/MedicationDetails";
+import { MedicationProvider } from './src/context/MedicationProvider';
+import AddMedication from "./src/screens/AddMedication/AddMedication";
+import EditMedication from "./src/screens/EditMedication/EditMedication";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,36 +30,41 @@ export default function App() {
   }, []);
 
 
-  const RenderDetailScreen = (props: any) => <InventoryDetail {...props} />;
+  const RenderDetailScreen = (props: any) => <MedicationDetail {...props} />;
 
   if (!userEmail.email) return <Login onSubmit={findUser} />;
   return (
     <NavigationContainer>
-      <InventoryProvider>
+      <MedicationProvider>
         <Stack.Navigator>
-          <Stack.Screen  options={{
-              headerTitle: "Inventories",
-            }} name="InventoryScreen">
-          {props => <InventoryScreen {...props} setUserEmail={setUserEmail} />}
-          </Stack.Screen>
-          <Stack.Screen name="Inventory Detail" component={RenderDetailScreen} />
           <Stack.Screen
             options={{
-              headerTitle: "Add New Inventory",
+              headerTitle: 'dashboard',
             }}
-            name="InventoryAddScreen"
-            component={AddInventoryItems}
+            name="dashboard">
+            {props => <DashboardItems {...props} setUserEmail={setUserEmail} />}
+          </Stack.Screen>
+          <Stack.Screen
+            name="MedicationDetail"
+            component={RenderDetailScreen}
+          />
+          <Stack.Screen
+            options={{
+              headerTitle: 'Add Medication',
+            }}
+            name="AddMedication"
+            component={AddMedication}
           />
 
           <Stack.Screen
             options={{
-              headerTitle: "Edit Inventory",
+              headerTitle: 'Edit Medication',
             }}
-            name="InventoryEditScreen"
-            component={EditInventory}
+            name="EditMedication"
+            component={EditMedication}
           />
         </Stack.Navigator>
-      </InventoryProvider>
+      </MedicationProvider>
     </NavigationContainer>
   );
 }

@@ -8,7 +8,7 @@ interface ButtonProps extends TouchableOpacityProps {
 const FloatingButton: React.FC<ButtonProps> = ({ title, ...rest }: ButtonProps) => {
   return (
     <TouchableOpacity style={styles.button} {...rest}>
-      <Text style={styles.buttonText}>Add Inventory</Text>
+      <Text style={styles.buttonText}>Add</Text>
     </TouchableOpacity>
   );
 };

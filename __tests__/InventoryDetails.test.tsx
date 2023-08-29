@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { Alert } from 'react-native';
-import InventoryDetails from '../src/components/InventoryDetails';
+import InventoryDetails from '../src/components/MedicationDetails';
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ goBack: jest.fn() }),
